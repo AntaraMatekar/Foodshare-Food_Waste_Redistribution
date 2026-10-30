@@ -1,3 +1,4 @@
+import os
 from datetime import datetime
 from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_login import (
@@ -13,7 +14,7 @@ from database import (
 from matching import calculate_match_score, get_match_label
 
 app = Flask(__name__)
-app.secret_key = "foodshare-secret-key"
+app.secret_key = os.environ.get("SECRET_KEY")
 
 login_manager = LoginManager()
 login_manager.init_app(app)
