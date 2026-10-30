@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Receiver Dashboard - FoodShare</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="bg-light">
+<nav class="navbar navbar-dark bg-success"><div class="container">
+<a class="navbar-brand fw-bold" href="/">🍱 FoodShare</a><div>
+<span class="text-white me-2">Welcome, {{ current_user.name }}</span>
+<a href="/notifications" class="btn btn-light btn-sm">🔔 {% if unread_notifications %}<span class="badge bg-danger">{{ unread_notifications }}</span>{% endif %}</a>
+<a href="/receiver/requests" class="btn btn-light btn-sm ms-2">📋 My Requests</a>
+<a href="/logout" class="btn btn-light btn-sm ms-2">Logout</a>
+</div></div></nav>
+
+<div class="container mt-5">
+<div class="mb-4"><h2>Receiver Dashboard</h2><p class="text-muted">Find suitable surplus food using rule-based smart matching.</p></div>
+<div class="alert alert-success"><strong>🤖 Smart Matching:</strong> Location 40% + Category 30% + Quantity 20% + Freshness 10%.</div>
+
+<div class="card shadow-sm mb-4"><div class="card-body">
+<form method="GET">
+<div class="row g-2">
+<div class="col-md-3"><label class="form-label">Search</label><input name="search" class="form-control" placeholder="Food or location" value="{{ search }}"></div>
+<div class="col-md-3"><label class="form-label">Your Location</label><input name="location" class="form-control" placeholder="Example: Nagpur" value="{{ location }}"></div>
+<div class="col-md-3"><label class="form-label">Category</label>
+<select name="category" class="form-select"><option value="">All Categories</option>
+{% for c in ["Cooked Food","Rice","Bread","Vegetables","Fruits","Packaged Food","Other"] %}
+<option value="{{ c }}" {% if category == c %}selected{% endif %}>{{ c }}</option>
+{% endfor %}</select></div>
+<div class="col-md-2"><label class="form-label">Quantity</label><input type="number" name="quantity" min="1" class="form-control" value="{{ quantity }}"></div>
+<div class="col-md-1 d-flex align-items-end"><button class="btn btn-success w-100">🔍</button></div>
+</div>
+</form></div></div>
+
+<div class="row">
+{% if matched_foods %}
+{% for item in matched_foods %}
+{% set food=item.food %}
+<div class="col-md-4 mb-4"><div class="card shadow-sm h-100"><div class="card-body">
+<div class="d-flex justify-content-between align-items-center">
+<span class="badge {% if item.score >= 80 %}bg-success{% elif item.score >= 50 %}bg-warning text-dark{% else %}bg-secondary{% endif %}">{{ item.label }} · {{ item.score }}%</span>
+<span class="badge bg-light text-dark">{{ food.category }}</span>
+</div>
+<h4 class="mt-3">{{ food.food_name }}</h4>
+<p class="text-muted">{{ food.description or "No description provided." }}</p>
+<hr>
+<p class="mb-1"><strong>Quantity:</strong> {{ food.quantity }} portions</p>
+<p class="mb-1"><strong>Location:</strong> {{ food.location }}</p>
+<p class="mb-1"><strong>Available Until:</strong> {{ food.available_until }}</p>
+<p><strong>Freshness:</strong>
+{% if food.expiry_status == "Expiring Soon" %}<span class="badge bg-warning text-dark">Expiring Soon</span>
+{% else %}<span class="badge bg-success">Fresh</span>{% endif %}</p>
+<details class="mb-3"><summary class="small text-muted">Why this match?</summary><ul class="small mt-2">{% for reason in item.reasons %}<li>{{ reason }}</li>{% endfor %}</ul></details>
+<a href="/receiver/request/{{ food.id }}" class="btn btn-success w-100">📩 Request Food</a>
+</div></div></div>
+{% endfor %}
+{% else %}
+<div class="col-12"><div class="alert alert-info text-center">No matching available food found.</div></div>
+{% endif %}
+</div>
+</div>
+</body></html>

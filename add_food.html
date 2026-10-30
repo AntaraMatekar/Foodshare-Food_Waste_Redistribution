@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Add Food - FoodShare</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+    <link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body class="bg-light">
+
+
+<nav class="navbar navbar-dark bg-success">
+
+    <div class="container">
+
+        <a class="navbar-brand fw-bold"
+           href="/donor/dashboard">
+
+            🍱 FoodShare
+
+        </a>
+
+        <a href="/logout"
+           class="btn btn-light btn-sm">
+
+            Logout
+
+        </a>
+
+    </div>
+
+</nav>
+
+
+<div class="container mt-5">
+
+    <div class="row justify-content-center">
+
+        <div class="col-md-8">
+
+            <div class="card shadow">
+
+                <div class="card-body p-4">
+
+                    <h2 class="text-success mb-4">
+                        Add Food Donation
+                    </h2>
+
+
+                    <p class="text-muted">
+                        Enter the details of the surplus food
+                        you want to redistribute.
+                    </p>
+
+
+                    <form method="POST">
+
+
+                        <!-- FOOD NAME -->
+
+                        <div class="mb-3">
+
+                            <label class="form-label">
+                                Food Name *
+                            </label>
+
+                            <input
+                                type="text"
+                                name="food_name"
+                                class="form-control"
+                                placeholder="Example: Rice and Dal"
+                                required>
+
+                        </div>
+
+
+                        <!-- CATEGORY -->
+
+                        <div class="mb-3">
+
+                            <label class="form-label">
+                                Food Category *
+                            </label>
+
+                            <select
+                                name="category"
+                                class="form-select"
+                                required>
+
+                                <option value="">
+                                    Select Category
+                                </option>
+
+                                <option value="Cooked Food">
+                                    Cooked Food
+                                </option>
+
+                                <option value="Rice">
+                                    Rice
+                                </option>
+
+                                <option value="Bread">
+                                    Bread
+                                </option>
+
+                                <option value="Vegetables">
+                                    Vegetables
+                                </option>
+
+                                <option value="Fruits">
+                                    Fruits
+                                </option>
+
+                                <option value="Packaged Food">
+                                    Packaged Food
+                                </option>
+
+                                <option value="Other">
+                                    Other
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <!-- QUANTITY -->
+
+                        <div class="mb-3">
+
+                            <label class="form-label">
+                                Quantity (Portions) *
+                            </label>
+
+                            <input
+                                type="number"
+                                name="quantity"
+                                class="form-control"
+                                min="1"
+                                placeholder="Example: 20"
+                                required>
+
+                        </div>
+
+
+                        <!-- PREPARED TIME -->
+
+                        <div class="mb-3">
+
+                            <label class="form-label">
+                                Prepared Time
+                            </label>
+
+                            <input
+                                type="datetime-local"
+                                name="prepared_time"
+                                class="form-control">
+
+                        </div>
+
+
+                        <!-- AVAILABLE UNTIL -->
+
+                        <div class="mb-3">
+
+                            <label class="form-label">
+                                Available Until *
+                            </label>
+
+                            <input
+                                type="datetime-local"
+                                name="available_until"
+                                class="form-control"
+                                required>
+
+                        </div>
+
+
+                        <!-- LOCATION -->
+
+                        <div class="mb-3">
+
+                            <label class="form-label">
+                                Location *
+                            </label>
+
+                            <input
+                                type="text"
+                                name="location"
+                                class="form-control"
+                                placeholder="Example: Pune"
+                                required>
+
+                        </div>
+
+
+                        <!-- DESCRIPTION -->
+
+                        <div class="mb-3">
+
+                            <label class="form-label">
+                                Description
+                            </label>
+
+                            <textarea
+                                name="description"
+                                class="form-control"
+                                rows="4"
+                                placeholder="Enter additional information about the food"></textarea>
+
+                        </div>
+
+
+                        <div class="d-flex justify-content-between">
+
+                            <a href="/donor/dashboard"
+                               class="btn btn-secondary">
+
+                                Cancel
+
+                            </a>
+
+
+                            <button
+                                type="submit"
+                                class="btn btn-success">
+
+                                Submit Donation
+
+                            </button>
+
+                        </div>
+
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

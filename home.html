@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>FoodShare - Food Redistribution</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+
+<body>
+
+
+<!-- NAVBAR -->
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-success">
+
+    <div class="container">
+
+        <a class="navbar-brand fw-bold"
+           href="/">
+
+            🍱 FoodShare
+
+        </a>
+
+
+        <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarMenu">
+
+            <span class="navbar-toggler-icon"></span>
+
+        </button>
+
+
+        <div
+            class="collapse navbar-collapse"
+            id="navbarMenu">
+
+
+            <ul class="navbar-nav ms-auto">
+
+
+                <li class="nav-item">
+
+                    <a class="nav-link"
+                       href="/">
+
+                        Home
+
+                    </a>
+
+                </li>
+
+
+                <li class="nav-item">
+
+                    <a class="nav-link"
+                       href="/login">
+
+                        Login
+
+                    </a>
+
+                </li>
+
+
+                <li class="nav-item">
+
+                    <a class="btn btn-light ms-lg-2"
+                       href="/register">
+
+                        Register
+
+                    </a>
+
+                </li>
+
+
+            </ul>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+<!-- HERO -->
+
+<section class="hero text-center">
+
+    <div class="container">
+
+        <h1>
+            Share Food, Reduce Waste
+        </h1>
+
+
+        <p class="mt-3">
+
+            Connecting surplus food with people who need it.
+
+        </p>
+
+
+        <div class="mt-4">
+
+
+            <a href="/register"
+               class="btn btn-light btn-lg me-2">
+
+                Get Started
+
+            </a>
+
+
+            <a href="/login"
+               class="btn btn-outline-light btn-lg">
+
+                Login
+
+            </a>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- PROBLEM -->
+
+<section class="py-5">
+
+    <div class="container">
+
+
+        <div class="text-center mb-5">
+
+            <h2>
+                What Problem Are We Solving?
+            </h2>
+
+            <p class="text-muted">
+
+                Large amounts of edible food can go unused while
+                people and organizations need food.
+
+            </p>
+
+        </div>
+
+
+        <div class="row g-4">
+
+
+            <div class="col-md-4">
+
+                <div class="card shadow-sm p-4 text-center h-100">
+
+                    <div class="fs-1">
+                        🍽️
+                    </div>
+
+                    <h4 class="mt-3">
+                        Surplus Food
+                    </h4>
+
+                    <p class="text-muted">
+
+                        Donors can list safe surplus food
+                        that might otherwise be wasted.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-4">
+
+                <div class="card shadow-sm p-4 text-center h-100">
+
+                    <div class="fs-1">
+                        🤝
+                    </div>
+
+                    <h4 class="mt-3">
+                        Food Redistribution
+                    </h4>
+
+                    <p class="text-muted">
+
+                        Receivers can discover and request
+                        available food.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-4">
+
+                <div class="card shadow-sm p-4 text-center h-100">
+
+                    <div class="fs-1">
+                        🤖
+                    </div>
+
+                    <h4 class="mt-3">
+                        Smart Matching
+                    </h4>
+
+                    <p class="text-muted">
+
+                        A rule-based matching system ranks
+                        suitable food donations.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- HOW IT WORKS -->
+
+<section class="bg-light py-5">
+
+    <div class="container">
+
+
+        <div class="text-center mb-5">
+
+            <h2>
+                How FoodShare Works
+            </h2>
+
+        </div>
+
+
+        <div class="row text-center">
+
+
+            <div class="col-md-3">
+
+                <div class="fs-1">
+                    👨‍🍳
+                </div>
+
+                <h5>
+                    1. Donor Adds Food
+                </h5>
+
+                <p class="text-muted">
+
+                    List available surplus food.
+
+                </p>
+
+            </div>
+
+
+            <div class="col-md-3">
+
+                <div class="fs-1">
+                    🔎
+                </div>
+
+                <h5>
+                    2. Receiver Searches
+                </h5>
+
+                <p class="text-muted">
+
+                    Find suitable available food.
+
+                </p>
+
+            </div>
+
+
+            <div class="col-md-3">
+
+                <div class="fs-1">
+                    📩
+                </div>
+
+                <h5>
+                    3. Request Food
+                </h5>
+
+                <p class="text-muted">
+
+                    Send a request to the donor.
+
+                </p>
+
+            </div>
+
+
+            <div class="col-md-3">
+
+                <div class="fs-1">
+                    🤝
+                </div>
+
+                <h5>
+                    4. Redistribution
+                </h5>
+
+                <p class="text-muted">
+
+                    Donor approves the request.
+
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- FOOTER -->
+
+<footer class="footer">
+
+    <p class="mb-0">
+
+        © 2026 FoodShare | Food Waste Redistribution System
+
+    </p>
+
+</footer>
+
+
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+</script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Donor Dashboard - FoodShare</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="bg-light">
+<nav class="navbar navbar-dark bg-success">
+<div class="container">
+<a class="navbar-brand fw-bold" href="/">🍱 FoodShare</a>
+<div>
+<span class="text-white me-2">Welcome, {{ current_user.name }}</span>
+<a href="/notifications" class="btn btn-light btn-sm">🔔 Notifications {% if unread_notifications %}<span class="badge bg-danger">{{ unread_notifications }}</span>{% endif %}</a>
+<a href="/donor/requests" class="btn btn-warning btn-sm ms-2">📩 Requests{% if pending_requests %} ({{ pending_requests }}){% endif %}</a>
+<a href="/logout" class="btn btn-light btn-sm ms-2">Logout</a>
+</div>
+</div>
+</nav>
+
+<div class="container mt-5">
+<div class="d-flex justify-content-between align-items-center mb-4">
+<div><h2>Donor Dashboard</h2><p class="text-muted mb-0">Manage surplus food from one place.</p></div>
+<a href="/donor/add-food" class="btn btn-success">+ Add Food Donation</a>
+</div>
+
+<div class="row g-3 mb-4">
+{% set cards = [
+("Total Donations", stats.total or 0, "success"),
+("Available", stats.available or 0, "primary"),
+("Completed", stats.completed or 0, "dark"),
+("Expired", stats.expired or 0, "danger")
+] %}
+{% for title,value,color in cards %}
+<div class="col-md-3"><div class="card shadow-sm border-0 h-100"><div class="card-body">
+<h6 class="text-muted">{{ title }}</h6><h2 class="text-{{ color }}">{{ value }}</h2>
+</div></div></div>
+{% endfor %}
+</div>
+
+<div class="card shadow-sm">
+<div class="card-body">
+<h4 class="mb-4">My Food Donations</h4>
+{% if donations %}
+<div class="table-responsive"><table class="table table-hover align-middle">
+<thead class="table-success"><tr><th>Food</th><th>Category</th><th>Quantity</th><th>Location</th><th>Available Until</th><th>Expiry</th><th>Status</th></tr></thead>
+<tbody>
+{% for food in donations %}
+<tr>
+<td><strong>{{ food.food_name }}</strong></td><td>{{ food.category }}</td><td>{{ food.quantity }}</td><td>{{ food.location }}</td>
+<td>{{ food.available_until }}</td>
+<td>{% if food.expiry_status == "Fresh" %}<span class="badge bg-success">Fresh</span>{% elif food.expiry_status == "Expiring Soon" %}<span class="badge bg-warning text-dark">Expiring Soon</span>{% elif food.expiry_status == "Expired" %}<span class="badge bg-danger">Expired</span>{% else %}<span class="badge bg-secondary">{{ food.expiry_status }}</span>{% endif %}</td>
+<td>
+{% if food.status == "Available" %}<span class="badge bg-success">Available</span>
+{% elif food.status == "Pickup Scheduled" %}<span class="badge bg-info text-dark">Pickup Scheduled</span>
+{% elif food.status == "Completed" %}<span class="badge bg-dark">Completed</span>
+{% elif food.status == "Expired" %}<span class="badge bg-danger">Expired</span>
+{% else %}<span class="badge bg-secondary">{{ food.status }}</span>{% endif %}
+</td>
+</tr>
+{% endfor %}
+</tbody></table></div>
+{% else %}
+<div class="text-center py-5"><h5>No food donations yet.</h5><a href="/donor/add-food" class="btn btn-success">Add Food Donation</a></div>
+{% endif %}
+</div></div>
+</div>
+</body></html>
